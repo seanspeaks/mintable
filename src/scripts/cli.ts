@@ -13,6 +13,7 @@ import migrate from './migrate'
 import { logError } from '../common/logging'
 ;(async function() {
     const logo = [
+        ':-)',
         '\n',
         '          %',
         '          %%',

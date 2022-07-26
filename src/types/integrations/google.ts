@@ -9,7 +9,7 @@ export interface GoogleCredentials {
   clientId: string
   clientSecret: string
   redirectUri: string
-  
+
   accessToken?: string
   refreshToken?: string
   scope?: string[]
@@ -23,7 +23,7 @@ export interface GoogleConfig extends BaseIntegrationConfig {
 
   credentials: GoogleCredentials
   documentId: string
-  
+
   dateFormat?: string
 
   template?: GoogleTemplateSheetSettings
@@ -37,7 +37,7 @@ export const defaultGoogleConfig: GoogleConfig = {
   credentials: {
     clientId: '',
     clientSecret: '',
-    redirectUri: 'urn:ietf:wg:oauth:2.0:oob',
+    redirectUri: 'http://localhost:8080/redirect/gsheets',
     scope: ['https://www.googleapis.com/auth/spreadsheets'],
   },
   documentId: ''

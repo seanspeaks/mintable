@@ -50,7 +50,8 @@ export class GoogleIntegration {
 
     public getAuthURL = (): string =>
         this.client.generateAuthUrl({
-            scope: this.googleConfig.credentials.scope
+            scope: this.googleConfig.credentials.scope,
+            redirect_uri: this.googleConfig.credentials.redirectUri
         })
 
     public getAccessTokens = (authCode: string): Promise<Credentials> =>
