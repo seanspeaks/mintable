@@ -37,7 +37,7 @@ export const defaultGoogleConfig: GoogleConfig = {
   credentials: {
     clientId: '',
     clientSecret: '',
-    redirectUri: 'http://localhost:8080/redirect/gsheets',
+    redirectUri: 'http://localhost:8080',
     scope: ['https://www.googleapis.com/auth/spreadsheets'],
   },
   documentId: ''

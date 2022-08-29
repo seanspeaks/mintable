@@ -63,6 +63,7 @@ export default async () => {
             })
 
             const google = new GoogleIntegration(getConfig())
+            console.log(google.getAuthURL())
             open(google.getAuthURL())
 
             console.log('\n\t5. A link will open in your browser asking you to sign in')
