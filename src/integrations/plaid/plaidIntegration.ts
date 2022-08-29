@@ -187,7 +187,6 @@ export class PlaidIntegration {
                 const end = format(endDate, dateFormat)
 
                 let options: plaid.TransactionsRequestOptions = { count: 500, offset: 0 }
-                options.include_original_description = true
                 let accounts = await this.client.getTransactions(accountConfig.token, start, end, options)
 
                 while (accounts.transactions.length < accounts.total_transactions) {
