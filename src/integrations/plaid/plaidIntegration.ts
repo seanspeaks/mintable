@@ -187,6 +187,7 @@ export class PlaidIntegration {
                 const end = format(endDate, dateFormat)
 
                 let options: plaid.TransactionsRequestOptions = { count: 500, offset: 0 }
+                options.include_original_description = true
                 let accounts = await this.client.getTransactions(accountConfig.token, start, end, options)
 
                 while (accounts.transactions.length < accounts.total_transactions) {
@@ -222,26 +223,29 @@ export class PlaidIntegration {
                     currency: account.balances.iso_currency_code || account.balances.unofficial_currency_code
                 }))
 
-                const transactions: Transaction[] = data.transactions.map(transaction => ({
-                    integration: IntegrationId.Plaid,
-                    name: transaction.name,
-                    date: parseISO(transaction.date),
-                    amount: transaction.amount,
-                    currency: transaction.iso_currency_code || transaction.unofficial_currency_code,
-                    type: transaction.transaction_type,
-                    accountId: transaction.account_id,
-                    transactionId: transaction.transaction_id,
-                    pendingtransactionId: transaction.pending_transaction_id,
-                    category: transaction.category.join(' - '),
-                    address: transaction.location.address,
-                    city: transaction.location.city,
-                    state: transaction.location.region,
-                    postal_code: transaction.location.postal_code,
-                    country: transaction.location.country,
-                    latitude: transaction.location.lat,
-                    longitude: transaction.location.lon,
-                    pending: transaction.pending
-                }))
+                const transactions: Transaction[] = data.transactions.map(transaction => {
+                    if (transaction.name === 'Amazon') console.log(transaction)
+                    return {
+                        integration: IntegrationId.Plaid,
+                        name: transaction.name,
+                        date: parseISO(transaction.date),
+                        amount: transaction.amount,
+                        currency: transaction.iso_currency_code || transaction.unofficial_currency_code,
+                        type: transaction.transaction_type,
+                        accountId: transaction.account_id,
+                        transactionId: transaction.transaction_id,
+                        pendingtransactionId: transaction.pending_transaction_id,
+                        category: transaction.category.join(' - '),
+                        address: transaction.location.address,
+                        city: transaction.location.city,
+                        state: transaction.location.region,
+                        postal_code: transaction.location.postal_code,
+                        country: transaction.location.country,
+                        latitude: transaction.location.lat,
+                        longitude: transaction.location.lon,
+                        pending: transaction.pending
+                    }
+                })
 
                 accounts = accounts.map(account => ({
                     ...account,
